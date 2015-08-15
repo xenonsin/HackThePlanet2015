@@ -357,6 +357,9 @@ MonoBehaviour:
   - {fileID: 11400008}
   - {fileID: 11400006}
   palm: {fileID: 0}
+  forearm: {fileID: 0}
+  wristJoint: {fileID: 0}
+  elbowJoint: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -369,6 +372,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerType: 1
+  bones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   sides: 5
   smoothNormals: 0
   startingAngle: 0
@@ -390,6 +402,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerType: 0
+  bones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   sides: 5
   smoothNormals: 0
   startingAngle: 0
@@ -411,6 +432,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerType: 4
+  bones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   sides: 5
   smoothNormals: 0
   startingAngle: 0
@@ -432,6 +462,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerType: 3
+  bones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   sides: 5
   smoothNormals: 0
   startingAngle: 0
@@ -453,6 +492,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerType: 2
+  bones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   sides: 5
   smoothNormals: 0
   startingAngle: 0

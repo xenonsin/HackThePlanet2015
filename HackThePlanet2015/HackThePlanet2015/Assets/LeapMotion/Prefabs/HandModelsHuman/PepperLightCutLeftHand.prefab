@@ -695,6 +695,11 @@ MonoBehaviour:
   - {fileID: 400026}
   - {fileID: 400010}
   - {fileID: 400012}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  deformPosition: 0
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: -0, y: -1, z: -0}
 --- !u!114 &11400002
@@ -714,6 +719,11 @@ MonoBehaviour:
   - {fileID: 400032}
   - {fileID: 400016}
   - {fileID: 400014}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  deformPosition: 0
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: -0, y: -1, z: -0}
 --- !u!114 &11400004
@@ -733,6 +743,11 @@ MonoBehaviour:
   - {fileID: 400030}
   - {fileID: 400018}
   - {fileID: 400020}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  deformPosition: 0
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: -0, y: -1, z: -0}
 --- !u!114 &11400006
@@ -752,6 +767,11 @@ MonoBehaviour:
   - {fileID: 400028}
   - {fileID: 400022}
   - {fileID: 400024}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  deformPosition: 0
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: -0, y: -1, z: -0}
 --- !u!114 &11400008
@@ -771,6 +791,11 @@ MonoBehaviour:
   - {fileID: 400038}
   - {fileID: 400034}
   - {fileID: 400036}
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  deformPosition: 0
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: -0, y: -1, z: -0}
 --- !u!114 &11400010
@@ -792,7 +817,9 @@ MonoBehaviour:
   - {fileID: 11400002}
   - {fileID: 11400000}
   palm: {fileID: 400042}
-  foreArm: {fileID: 0}
+  forearm: {fileID: 0}
+  wristJoint: {fileID: 0}
+  elbowJoint: {fileID: 0}
   modelFingerPointing: {x: 1, y: 0, z: 0}
   modelPalmFacing: {x: -0, y: -1, z: -0}
 --- !u!137 &13700000

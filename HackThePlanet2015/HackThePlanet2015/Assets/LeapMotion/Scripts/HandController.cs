@@ -32,9 +32,15 @@ public class HandController : MonoBehaviour {
   // Reference distance from thumb base to pinky base in mm.
   protected const float GIZMO_SCALE = 5.0f;
   /** Conversion factor for millimeters to meters. */
-  protected const float MM_TO_M = 0.001f;
+  protected const float MM_TO_M = 1e-3f;
+  /** Conversion factor for nanoseconds to seconds. */
+  protected const float NS_TO_S = 1e-6f;
+  /** Conversion factor for seconds to nanoseconds. */
+  protected const float S_TO_NS = 1e6f;
+  /** How much smoothing to use when calculating the FixedUpdate offset. */
+  protected const float FIXED_UPDATE_OFFSET_SMOOTHING_DELAY = 0.1f;
 
-  /** Whether to use a separate model for left and right hands (true); or mirror the same model for both hands (false). */ 
+  /** Whether to use a separate model for left and right hands (true); or mirror the same model for both hands (false). */
   public bool separateLeftRight = false;
   /** The GameObject containing graphics to use for the left hand or both hands if separateLeftRight is false. */
   public HandModel leftGraphicsModel;
@@ -44,7 +50,9 @@ public class HandController : MonoBehaviour {
   public HandModel rightGraphicsModel;
   /** The physics hand model to use for the right hand. */
   public HandModel rightPhysicsModel;
-  // If this is null hands will have no parent
+  /** The parent transform to which the hand models are added as children.
+   * If null, the hands have no parent.
+   */
   public Transform handParent = null;
 
   /** The GameObject containing both graphics and colliders for tools. */
@@ -70,10 +78,10 @@ public class HandController : MonoBehaviour {
   public float recorderSpeed = 1.0f;
   /** Whether to loop the playback. */
   public bool recorderLoop = true;
-  
+
   /** The object used to control recording and playback.*/
-  protected LeapRecorder recorder_ = new LeapRecorder();
-  
+  protected LeapRecorder recorder_;
+
   /** The underlying Leap Motion Controller object.*/
   protected Controller leap_controller_;
 
@@ -87,7 +95,13 @@ public class HandController : MonoBehaviour {
   private bool flag_initialized_ = false;
   private long prev_graphics_id_ = 0;
   private long prev_physics_id_ = 0;
-  
+
+  /** The smoothed offset between the FixedUpdate timeline and the Leap timeline.  
+   * Used to provide temporally correct frames within FixedUpdate */
+  private SmoothedFloat smoothedFixedUpdateOffset_ = new SmoothedFloat();
+  /** The maximum offset calculated per frame */
+  private float perFrameFixedUpdateOffset_;
+
   /** Draws the Leap Motion gizmo when in the Unity editor. */
   void OnDrawGizmos() {
     // Draws the little Leap Motion Controller in the Editor view.
@@ -99,8 +113,7 @@ public class HandController : MonoBehaviour {
   * Initializes the Leap Motion policy flags.
   * The POLICY_OPTIMIZE_HMD flag improves tracking for head-mounted devices.
   */
-  void InitializeFlags()
-  {
+  void InitializeFlags() {
     // Optimize for top-down tracking if on head mounted display.
     Controller.PolicyFlag policy_flags = leap_controller_.PolicyFlags;
     if (isHeadMounted)
@@ -114,6 +127,7 @@ public class HandController : MonoBehaviour {
   /** Creates a new Leap Controller object. */
   void Awake() {
     leap_controller_ = new Controller();
+    recorder_ = new LeapRecorder();
   }
 
   /** Initalizes the hand and tool lists and recording, if enabled.*/
@@ -123,6 +137,8 @@ public class HandController : MonoBehaviour {
     hand_physics_ = new Dictionary<int, HandModel>();
 
     tools_ = new Dictionary<int, ToolModel>();
+
+    smoothedFixedUpdateOffset_.delay = FIXED_UPDATE_OFFSET_SMOOTHING_DELAY;
 
     if (leap_controller_ == null) {
       Debug.LogWarning(
@@ -177,7 +193,7 @@ public class HandController : MonoBehaviour {
   * @param left_model The HandModel instance to use for new left hands.
   * @param right_model The HandModel instance to use for new right hands.
   */
-	protected void UpdateHandModels(Dictionary<int, HandModel> all_hands,
+  protected void UpdateHandModels(Dictionary<int, HandModel> all_hands,
                                   HandList leap_hands,
                                   HandModel left_model, HandModel right_model) {
     List<int> ids_to_check = new List<int>(all_hands.Keys);
@@ -186,7 +202,7 @@ public class HandController : MonoBehaviour {
     int num_hands = leap_hands.Count;
     for (int h = 0; h < num_hands; ++h) {
       Hand leap_hand = leap_hands[h];
-      
+
       HandModel model = (mirrorZAxis != leap_hand.IsLeft) ? left_model : right_model;
 
       // If we've mirrored since this hand was updated, destroy it.
@@ -209,13 +225,12 @@ public class HandController : MonoBehaviour {
 
           // Set scaling based on reference hand.
           float hand_scale = MM_TO_M * leap_hand.PalmWidth / new_hand.handModelPalmWidth;
-          new_hand.transform.localScale = hand_scale * transform.lossyScale;
+          new_hand.transform.localScale = hand_scale * Vector3.one;
 
           new_hand.InitHand();
           new_hand.UpdateHand();
           all_hands[leap_hand.Id] = new_hand;
-        }
-        else {
+        } else {
           // Make sure we update the Leap Hand reference.
           HandModel hand_model = all_hands[leap_hand.Id];
           hand_model.SetLeapHand(leap_hand);
@@ -223,7 +238,7 @@ public class HandController : MonoBehaviour {
 
           // Set scaling based on reference hand.
           float hand_scale = MM_TO_M * leap_hand.PalmWidth / hand_model.handModelPalmWidth;
-          hand_model.transform.localScale = hand_scale * transform.lossyScale;
+          hand_model.transform.localScale = hand_scale * Vector3.one;
           hand_model.UpdateHand();
         }
       }
@@ -262,7 +277,7 @@ public class HandController : MonoBehaviour {
     int num_tools = leap_tools.Count;
     for (int h = 0; h < num_tools; ++h) {
       Tool leap_tool = leap_tools[h];
-      
+
       // Only create or update if the tool is enabled.
       if (model) {
 
@@ -283,7 +298,7 @@ public class HandController : MonoBehaviour {
         tool_model.MirrorZAxis(mirrorZAxis);
 
         // Set scaling.
-        tool_model.transform.localScale = transform.lossyScale;
+        tool_model.transform.localScale = Vector3.one;
 
         tool_model.UpdateTool();
       }
@@ -301,47 +316,122 @@ public class HandController : MonoBehaviour {
     return leap_controller_;
   }
 
+  /** Returns the Leap Recorder instance used by this Hand Controller. */
+  public LeapRecorder GetLeapRecorder() {
+    return recorder_;
+  }
+
   /**
   * Returns the latest frame object.
   *
   * If the recorder object is playing a recording, then the frame is taken from the recording.
   * Otherwise, the frame comes from the Leap Motion Controller itself.
   */
-  public Frame GetFrame() {
-    if (enableRecordPlayback && recorder_.state == RecorderState.Playing)
+  public virtual Frame GetFrame() {
+    if (enableRecordPlayback && (recorder_.state == RecorderState.Playing || recorder_.state == RecorderState.Paused))
       return recorder_.GetCurrentFrame();
 
     return leap_controller_.Frame();
   }
 
+  /**
+   * NOTE: This method should ONLY be called from within a FixedUpdate callback.
+   * 
+   * Unity Physics runs at a constant frame step, where the physics time between each FixedUpdate is the same. However
+   * there is a big difference between the physics timeline and the real timeline.  In Unity, these timelines can be
+   * very skewed, where the actual times FixedUpdate is called can vary greatly.  For example, the graph below
+   * shows the real times when FixedUpdate was called.  
+   * 
+   * \image html images/GetFixedFrame_FixedUpdateCluster_Graph.png
+   * 
+   * The graph shows major clustering occuring of FixedUpdate calls, rather than an even spread.  Specifically, Unity
+   * always executes all of the FixedUpdate calls at the *begining* of an Update frame, and then performs interpolation
+   * to convert physics objects from the physics timeline to the real timeline.
+   * 
+   * This causes an issue when we need to aquire a Leap Frame from within FixedUpdate, since we need to provide a Frame
+   * to the physics timeline, but the Leap provides frames from the real timeline.  The image below shows what happens
+   * when we simply sample controller.Frame() from within FixedUpdate.  The X axis represents Time.fixedTime, and the Y
+   * axis represents the Frame.Timestamp
+   * 
+   * \image html images/GetFixedFrame_Naive_Graph.png
+   * 
+   * The graph shows how, from the perspective of the physics timeline, the Frames are arriving in a jagged way, staying
+   * the same for a large amount of time before jumping a large amount forward.  Ideally we would be able to take advantage
+   * of the full 120FPS of frames the service provides, properly interpolated into the physics timeline.  
+   * 
+   * GetFixedFrame attempts to establish a conversion from the real timeline to the physics timeline, to provide both
+   * uniformly sampled Frames, as well as not introducing latency.  The graph below shows a comparison between the naive
+   * method of sampling the most recent frame (red), and the usage of GetFixedFrame (green).  The X axis represents Time.fixedTime
+   * while the Y axis represents the Frame.Timestamp obtained by the 2 methods
+   * 
+   * \image html images/GetFixedFrame_Comparison_Graph.png
+   * 
+   * As the graph shows, the GetFixedFrame method can significantly help solve the judder that can occur when sampling
+   * controller.Frame while in FixedUpdate.
+   * 
+   * ALSO: If the recorder object is playing a recording, then the frame is taken directly from the recording,
+   * with no timeline synchronization performed.
+   */
+  public virtual Frame GetFixedFrame() {
+    if (enableRecordPlayback && (recorder_.state == RecorderState.Playing || recorder_.state == RecorderState.Paused))
+      return recorder_.GetCurrentFrame();
+
+    //Aproximate the correct timestamp given the current fixed time
+    float correctedTimestamp = (Time.fixedTime + smoothedFixedUpdateOffset_.value) * S_TO_NS;
+
+    //Search the leap history for a frame with a timestamp closest to the corrected timestamp
+    Frame closestFrame = leap_controller_.Frame();
+    for (int searchHistoryIndex = 1; searchHistoryIndex < 60; searchHistoryIndex++) {
+      Frame historyFrame = leap_controller_.Frame(searchHistoryIndex);
+
+      //If we reach an invalid frame, terminate the search
+      if (!historyFrame.IsValid) {
+        break;
+      }
+
+      if (Mathf.Abs(historyFrame.Timestamp - correctedTimestamp) < Mathf.Abs(closestFrame.Timestamp - correctedTimestamp)) {
+        closestFrame = historyFrame;
+      } else {
+        //Since frames are always reported in order, we can terminate the search once we stop finding a closer frame
+        break;
+      }
+    }
+
+    return closestFrame;
+  }
+
   /** Updates the graphics objects. */
-  void Update() {
+  protected virtual void Update() {
     if (leap_controller_ == null)
       return;
-    
+
     UpdateRecorder();
     Frame frame = GetFrame();
 
-    if (frame != null && !flag_initialized_)
-    {
+    if (frame != null && !flag_initialized_) {
       InitializeFlags();
     }
-    if (frame.Id != prev_graphics_id_)
-    {
+    if (frame.Id != prev_graphics_id_) {
       UpdateHandModels(hand_graphics_, frame.Hands, leftGraphicsModel, rightGraphicsModel);
       prev_graphics_id_ = frame.Id;
     }
+
+    //perFrameFixedUpdateOffset_ contains the maximum offset of this Update cycle
+    smoothedFixedUpdateOffset_.Update(perFrameFixedUpdateOffset_, Time.deltaTime);
   }
 
   /** Updates the physics objects */
-  void FixedUpdate() {
+  protected virtual void FixedUpdate() {
     if (leap_controller_ == null)
       return;
 
-    Frame frame = GetFrame();
+    //All FixedUpdates of a frame happen before Update, so only the last of these calculations is passed
+    //into Update for smoothing.
+    perFrameFixedUpdateOffset_ = leap_controller_.Frame().Timestamp * NS_TO_S - Time.fixedTime;
 
-    if (frame.Id != prev_physics_id_)
-    {
+    Frame frame = GetFixedFrame();
+
+    if (frame.Id != prev_physics_id_) {
       UpdateHandModels(hand_physics_, frame.Hands, leftPhysicsModel, rightPhysicsModel);
       UpdateToolModels(tools_, frame.Tools, toolModel);
       prev_physics_id_ = frame.Id;
@@ -362,7 +452,7 @@ public class HandController : MonoBehaviour {
     }
     // TODO: Add baseline & offset when included in API
     // NOTE: Alternative is to use device type since all parameters are invariant
-    info.isEmbedded = devices [0].IsEmbedded;
+    info.isEmbedded = devices[0].IsEmbedded;
     info.horizontalViewAngle = devices[0].HorizontalViewAngle * Mathf.Rad2Deg;
     info.verticalViewAngle = devices[0].VerticalViewAngle * Mathf.Rad2Deg;
     info.trackingRange = devices[0].Range / 1000f;
@@ -405,7 +495,15 @@ public class HandController : MonoBehaviour {
       hand_physics_.Clear();
     }
   }
-  
+
+  void OnDisable() {
+    DestroyAllHands();
+  }
+
+  void OnDestroy() {
+    DestroyAllHands();
+  }
+
   /** The current frame position divided by the total number of frames in the recording. */
   public float GetRecordingProgress() {
     return recorder_.GetProgress();
@@ -456,8 +554,7 @@ public class HandController : MonoBehaviour {
 
     if (recorder_.state == RecorderState.Recording) {
       recorder_.AddFrame(leap_controller_.Frame());
-    }
-    else {
+    } else if (recorder_.state == RecorderState.Playing) {
       recorder_.NextFrame();
     }
   }

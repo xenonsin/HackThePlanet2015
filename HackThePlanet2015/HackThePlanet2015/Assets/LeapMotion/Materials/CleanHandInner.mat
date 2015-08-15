@@ -43,12 +43,12 @@ Material:
         second: .0300000031
       data:
         first:
-          name: _InvFade
-        second: .00999999978
-      data:
-        first:
           name: _EmissionLM
         second: 0
+      data:
+        first:
+          name: _InvFade
+        second: .00999999978
       data:
         first:
           name: _EmissionGain

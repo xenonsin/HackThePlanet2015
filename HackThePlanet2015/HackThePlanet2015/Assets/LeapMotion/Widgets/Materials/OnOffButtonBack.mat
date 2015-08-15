@@ -43,12 +43,12 @@ Material:
         second: .00999999978
       data:
         first:
-          name: _Gain
-        second: 1
-      data:
-        first:
           name: _EmissionLM
         second: 10
+      data:
+        first:
+          name: _Gain
+        second: 1
     m_Colors:
       data:
         first:

@@ -1033,6 +1033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   confidenceSmoothing: 10
   confidenceCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0

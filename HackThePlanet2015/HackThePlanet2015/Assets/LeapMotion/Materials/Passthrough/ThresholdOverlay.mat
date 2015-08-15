@@ -93,6 +93,18 @@ Material:
         second: .5
       data:
         first:
+          name: _Fade
+        second: .5
+      data:
+        first:
+          name: _Min
+        second: .200000003
+      data:
+        first:
+          name: _Max
+        second: .300000012
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -121,28 +133,16 @@ Material:
         second: 0
       data:
         first:
+          name: _EmissionScaleUI
+        second: 0
+      data:
+        first:
           name: _Mode
         second: 0
       data:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _EmissionScaleUI
-        second: 0
-      data:
-        first:
-          name: _Fade
-        second: .5
-      data:
-        first:
-          name: _Min
-        second: .200000003
-      data:
-        first:
-          name: _Max
-        second: .300000012
     m_Colors:
       data:
         first:

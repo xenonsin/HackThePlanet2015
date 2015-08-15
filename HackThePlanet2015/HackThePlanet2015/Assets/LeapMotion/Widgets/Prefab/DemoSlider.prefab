@@ -1111,26 +1111,10 @@ MonoBehaviour:
   botLayer: {fileID: 11450534}
   dot: {fileID: 150510}
   numberOfDots: 10
-  BotLayerPressedColor:
-    r: 0
-    g: 1
-    b: 1
-    a: 1
-  BotLayerReleasedColor:
-    r: 0
-    g: .25
-    b: .25
-    a: .5
-  DotsOnColor:
-    r: 0
-    g: 1
-    b: 1
-    a: 1
-  DotsOffColor:
-    r: 0
-    g: .25
-    b: .25
-    a: .5
+  BotLayerPressedColor: {r: 0, g: 1, b: 1, a: 1}
+  BotLayerReleasedColor: {r: 0, g: .25, b: .25, a: .5}
+  DotsOnColor: {r: 0, g: 1, b: 1, a: 1}
+  DotsOffColor: {r: 0, g: .25, b: .25, a: .5}
 --- !u!114 &11450538
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -585,26 +585,10 @@ MonoBehaviour:
   offGraphics: {fileID: 11472682}
   midGraphics: {fileID: 11472680}
   botGraphics: {fileID: 11472686}
-  MidGraphicsOnColor:
-    r: 0
-    g: .5
-    b: .5
-    a: 1
-  BotGraphicsOnColor:
-    r: 0
-    g: 1
-    b: 1
-    a: 1
-  MidGraphicsOffColor:
-    r: 0
-    g: .5
-    b: .5
-    a: .100000001
-  BotGraphicsOffColor:
-    r: 0
-    g: .25
-    b: .25
-    a: 1
+  MidGraphicsOnColor: {r: 0, g: .5, b: .5, a: 1}
+  BotGraphicsOnColor: {r: 0, g: 1, b: 1, a: 1}
+  MidGraphicsOffColor: {r: 0, g: .5, b: .5, a: .100000001}
+  BotGraphicsOffColor: {r: 0, g: .25, b: .25, a: 1}
 --- !u!222 &22200000
 CanvasRenderer:
   m_ObjectHideFlags: 1

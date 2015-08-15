@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400036}
   - 65: {fileID: 6500000}
   - 54: {fileID: 5400000}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 400038}
   - 65: {fileID: 6500002}
   - 54: {fileID: 5400002}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 400040}
   - 65: {fileID: 6500004}
   - 54: {fileID: 5400004}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - 4: {fileID: 400018}
   - 65: {fileID: 6500006}
   - 54: {fileID: 5400006}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - 4: {fileID: 400020}
   - 65: {fileID: 6500008}
   - 54: {fileID: 5400008}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 65: {fileID: 6500010}
   - 54: {fileID: 5400010}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 65: {fileID: 6500012}
   - 54: {fileID: 5400012}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - 4: {fileID: 400004}
   - 65: {fileID: 6500014}
   - 54: {fileID: 5400014}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - 4: {fileID: 400006}
   - 65: {fileID: 6500016}
   - 54: {fileID: 5400016}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - 4: {fileID: 400008}
   - 65: {fileID: 6500018}
   - 54: {fileID: 5400018}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - 4: {fileID: 400010}
   - 65: {fileID: 6500020}
   - 54: {fileID: 5400020}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   - 4: {fileID: 400012}
   - 65: {fileID: 6500024}
   - 54: {fileID: 5400024}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - 4: {fileID: 400014}
   - 65: {fileID: 6500026}
   - 54: {fileID: 5400026}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   - 4: {fileID: 400016}
   - 65: {fileID: 6500028}
   - 54: {fileID: 5400028}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   - 4: {fileID: 400022}
   - 65: {fileID: 6500030}
   - 54: {fileID: 5400030}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400026}
   - 114: {fileID: 11400002}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400028}
   - 114: {fileID: 11400000}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: pinky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - 4: {fileID: 400030}
   - 65: {fileID: 6500022}
   - 54: {fileID: 5400022}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: palm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400032}
   - 114: {fileID: 11400004}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400042}
   - 114: {fileID: 11400010}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: index
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400024}
   - 114: {fileID: 11400006}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: thumb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,13 +361,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 400034}
   - 114: {fileID: 11400008}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: RigidFullHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100046
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +378,7 @@ GameObject:
   - 4: {fileID: 400046}
   - 65: {fileID: 6500034}
   - 54: {fileID: 5400034}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,9 +695,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400002
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -710,9 +710,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400004
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -725,9 +725,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400006
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -740,9 +740,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400008
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -755,9 +755,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400010
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -770,9 +770,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400012
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -785,9 +785,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400014
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -800,9 +800,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400016
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -815,9 +815,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400018
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -830,9 +830,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400020
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -845,9 +845,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400022
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -860,9 +860,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400024
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -875,9 +875,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400026
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -890,9 +890,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400028
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -905,9 +905,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400030
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -920,9 +920,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!54 &5400034
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -933,11 +933,11 @@ Rigidbody:
   m_Mass: 1e+09
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &6500000
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -160,6 +160,7 @@ MonoBehaviour:
   firstSegment: {fileID: 650743173}
   lastSegment: {fileID: 1520875218}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -189,6 +190,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -223,6 +225,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -299,6 +302,7 @@ MonoBehaviour:
   firstSegment: {fileID: 1373243933}
   lastSegment: {fileID: 1422196485}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -328,6 +332,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -362,6 +367,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -457,9 +463,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &211844185
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -978,9 +984,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &303584359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1061,6 +1067,7 @@ MonoBehaviour:
   firstSegment: {fileID: 734082120}
   lastSegment: {fileID: 1455973281}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -1090,6 +1097,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -1124,6 +1132,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -1188,7 +1197,7 @@ Transform:
   - {fileID: 211844183}
   - {fileID: 592327866}
   m_Father: {fileID: 1650406448}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &327316973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1293,6 +1302,7 @@ MonoBehaviour:
   firstSegment: {fileID: 2080364439}
   lastSegment: {fileID: 1696233471}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: .311597228
       value: .0311003551
@@ -1317,10 +1327,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -2625,6 +2637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -2729,6 +2742,7 @@ MonoBehaviour:
   firstSegment: {fileID: 1064550345}
   lastSegment: {fileID: 1556397790}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -2758,6 +2772,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -2792,6 +2807,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -3002,9 +3018,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &592327868
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3060,9 +3076,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &592939405
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3166,7 +3182,7 @@ Transform:
   - {fileID: 1831855396}
   - {fileID: 1904034632}
   m_Father: {fileID: 1650406448}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &632226188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3401,9 +3417,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &665223916
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3743,9 +3759,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &746827702
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3804,6 +3820,7 @@ MonoBehaviour:
   fadeInTime: 1
   fadeOutTime: 1
   fade:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -3820,11 +3837,7 @@ MonoBehaviour:
   waitFrames: 10
   embeddedReplacementImage: {fileID: 2800000, guid: ebc61a8ce70eb495494d1209ae9dbf43,
     type: 3}
-  onColor:
-    r: .544117689
-    g: .544117689
-    b: .544117689
-    a: 1
+  onColor: {r: .544117689, g: .544117689, b: .544117689, a: 1}
 --- !u!131 &764447444
 GUITexture:
   m_ObjectHideFlags: 0
@@ -3949,6 +3962,7 @@ MonoBehaviour:
   - {fileID: 2038108565}
   sides: 8
   stemCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 7.14696944e-05
       value: .156083718
@@ -4248,6 +4262,7 @@ MonoBehaviour:
   firstSegment: {fileID: 984986875}
   lastSegment: {fileID: 1633080650}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -4277,6 +4292,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -4311,6 +4327,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -5682,9 +5699,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &942375606
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6046,9 +6063,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1055918037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7587,9 +7604,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1143593701
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7997,9 +8014,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1308738436
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8212,7 +8229,7 @@ Transform:
   - {fileID: 303584357}
   - {fileID: 1143593699}
   m_Father: {fileID: 1650406448}
-  m_RootOrder: 5
+  m_RootOrder: 0
 --- !u!114 &1398782412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9687,9 +9704,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1446853052
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11024,6 +11041,7 @@ MonoBehaviour:
   firstSegment: {fileID: 1740391655}
   lastSegment: {fileID: 369370555}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: .311597228
       value: .0623769835
@@ -11048,10 +11066,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -11112,6 +11132,7 @@ MonoBehaviour:
   leftPhysicsModel: {fileID: 1650406450}
   rightGraphicsModel: {fileID: 11400010, guid: fb2d6e2c3c6ef431caaff3cf8beb3b75, type: 2}
   rightPhysicsModel: {fileID: 1650406450}
+  handParent: {fileID: 0}
   toolModel: {fileID: 0}
   isHeadMounted: 0
   mirrorZAxis: 0
@@ -15050,12 +15071,12 @@ Transform:
   m_LocalPosition: {x: -4.1190443, y: 1.93521142, z: -6.83640623}
   m_LocalScale: {x: 25, y: 25, z: 25}
   m_Children:
+  - {fileID: 1398782411}
   - {fileID: 327316972}
   - {fileID: 632226187}
-  - {fileID: 1926983607}
   - {fileID: 1542558121}
   - {fileID: 1293181094}
-  - {fileID: 1398782411}
+  - {fileID: 1926983607}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!114 &1650406449
@@ -15069,12 +15090,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feefc2f01ecd948f9bd88d185b4fc0ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabbableLayers: {}
+  grabbableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   grabTriggerDistance: .800000012
   releaseTriggerDistance: 1
   grabObjectDistance: .699999988
   releaseBreakDistance: .300000012
   releaseStrengthCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.00134408602
       value: .995133698
@@ -15112,9 +15136,10 @@ MonoBehaviour:
   - {fileID: 632226188}
   - {fileID: 1293181095}
   - {fileID: 1542558122}
-  palm: {fileID: 1926983606}
+  palm: {fileID: 1926983607}
   forearm: {fileID: 0}
   wristJoint: {fileID: 0}
+  elbowJoint: {fileID: 0}
   filtering: .5
 --- !u!1 &1696233469
 GameObject:
@@ -16731,6 +16756,7 @@ MonoBehaviour:
   firstSegment: {fileID: 1414706385}
   lastSegment: {fileID: 854576879}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -16760,6 +16786,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -16794,6 +16821,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -17039,6 +17067,7 @@ MonoBehaviour:
   firstSegment: {fileID: 1792511784}
   lastSegment: {fileID: 1082175347}
   flowerCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -17068,6 +17097,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   morphCurve:
+    serializedVersion: 2
     m_Curve:
     - time: -.0167011023
       value: -.00164276361
@@ -17102,6 +17132,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   growthDelayCurve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
@@ -17197,9 +17228,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1831855398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17255,9 +17286,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1904034634
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17299,7 +17330,7 @@ Transform:
   m_LocalScale: {x: .0250000004, y: .129999995, z: .0250000004}
   m_Children: []
   m_Father: {fileID: 1650406448}
-  m_RootOrder: 2
+  m_RootOrder: 5
 --- !u!54 &1926983608
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17313,9 +17344,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1926983609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17455,9 +17486,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &2021808992
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17513,9 +17544,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &2024752270
 BoxCollider:
   m_ObjectHideFlags: 0
