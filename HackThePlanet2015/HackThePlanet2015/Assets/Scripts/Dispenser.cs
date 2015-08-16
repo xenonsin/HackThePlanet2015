@@ -2,9 +2,9 @@
 
 namespace Tamagotchi
 {
-    public class CandyDispenser : MonoBehaviour, IDispensable
+    public class Dispenser : MonoBehaviour, IDispensable
     {
-        public GameObject CandyGO;
+        public GameObject consumable;
         [SerializeField]
         private float _spawnCooldown = 2f;
         public float SpawnCooldown { get { return _spawnCooldown; } set { _spawnCooldown = value; } }
@@ -28,12 +28,13 @@ namespace Tamagotchi
 
         public void Dispense()
         {
-            GameObject candy = GameObject.Instantiate(CandyGO,transform.position, Quaternion.identity) as GameObject;
+            GameObject go = GameObject.Instantiate(consumable,transform.position, Quaternion.identity) as GameObject;
             //candy.transform.parent = transform;
-            candy.transform.rotation = Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f));
-            candy.SetActive(true);
+            go.transform.rotation = Quaternion.Euler(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f));
+            go.SetActive(true);
 
-            candy.GetComponent<Rigidbody>().AddForce(transform.forward, ForceMode.Impulse);
+            Vector3 modifier = new Vector3(Random.value,Random.value,Random.value);
+            go.GetComponent<Rigidbody>().AddForce(transform.forward + modifier, ForceMode.Impulse);
         }
     }
 }
