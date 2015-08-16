@@ -30,6 +30,8 @@ namespace Tamagotchi
         private ReturningState _currentReturningState = ReturningState.NONE;
         [SerializeField]
         private RoamingState _currentRoamingState = RoamingState.NONE;
+        [SerializeField]
+        private PlayingState _currentPlayingState = PlayingState.NONE;
 
         public static Pet Instance;
 
@@ -42,12 +44,16 @@ namespace Tamagotchi
         public float stablizeCooldown = 3.0f;
         private float stablizeTime = 0.0f;
 
+        public float playStablizeCooldown = 5.0f;
+        private float playStablizeTime = 0.0f;
+
         public float floatingStrength = 100.0f;
 
         public float idleTimeLeft = 0.0f;
-        public float decidingTimeLeft = 0.0f;
 
+        public float movementRate = 4f;
 
+        public GameObject ExerciseNode;
         public Vector3 targetLocation = new Vector3();
         private Vector3 lastLocation = new Vector3();
 
@@ -95,6 +101,9 @@ namespace Tamagotchi
         public void Play()
         {
             _currentAIState = AIStates.PLAYING;
+            if (_currentPlayingState == PlayingState.NONE)
+                _currentPlayingState = PlayingState.SETTING_UP;
+
         }
         #endregion
         #region Unity STuff
@@ -152,6 +161,7 @@ namespace Tamagotchi
                     Idle();
                     break;
                 case AIStates.PLAYING:
+                    Playing();
                     break;
                 case AIStates.ROAMING:
                     Roaming();
@@ -227,7 +237,7 @@ namespace Tamagotchi
                     _currentRoamingState = RoamingState.MOVING;
                     break;
                 case RoamingState.MOVING:
-                    transform.position = Vector3.MoveTowards(transform.position, targetLocation,Time.deltaTime / 4);
+                    transform.position = Vector3.MoveTowards(transform.position, targetLocation,Time.deltaTime / movementRate);
                     if (ReachedTarget())
                         _currentRoamingState = RoamingState.REACHED_TARGET;
                     break;
@@ -251,7 +261,7 @@ namespace Tamagotchi
 
                     break;
                 case ReturningState.MOVING:
-                    transform.position = Vector3.MoveTowards(transform.position, targetLocation,Time.deltaTime / 4);
+                    transform.position = Vector3.MoveTowards(transform.position, targetLocation,Time.deltaTime / movementRate);
                     if (ReachedTarget())
                         _currentReturningState = ReturningState.REACHED_TARGET;
                     break;
@@ -262,19 +272,53 @@ namespace Tamagotchi
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        void Playing()
+        {
+            switch (_currentPlayingState)
+            {
+                case PlayingState.NONE:
+                    break;
+                case PlayingState.SETTING_UP:
+                    targetLocation = ExerciseNode.transform.position;
+                    _currentPlayingState = PlayingState.MOVING;
+                    break;
+                case PlayingState.WAITING:
+                    transform.position = new Vector3(transform.position.x, lastLocation.y + ((float)Math.Sin(Time.time) / floatingStrength), transform.position.z);
+                    break;
+                case PlayingState.STUNNED:
+                    break;
+                case PlayingState.MOVING:
+                    transform.position = Vector3.MoveTowards(transform.position, targetLocation,Time.deltaTime / 3);
+                    if (ReachedTarget())
+                        _currentPlayingState = PlayingState.WAITING;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
         void Stabalize()
         {
-            
-            if (Time.time > stablizeTime + stablizeCooldown && _currentAIState == AIStates.PARALYZED)
+            if (_currentAIState == AIStates.PARALYZED)
             {
-                stablizeTime = Time.time;
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-              
-                _currentAIState = AIStates.DECIDING;
-                
+                if (Time.time > stablizeTime + stablizeCooldown)
+                {
+                    stablizeTime = Time.time;
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    _currentAIState = AIStates.DECIDING;
+                }
             }
-
+            else if (_currentPlayingState == PlayingState.STUNNED)
+            {
+                if (Time.time > playStablizeTime + playStablizeCooldown)
+                {
+                    playStablizeTime = Time.time;
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    _currentPlayingState = PlayingState.SETTING_UP;
+                }
+            }
         }
 
         void ResetAIStates()
@@ -283,6 +327,7 @@ namespace Tamagotchi
             _currentReturningState = ReturningState.NONE;
             _currentIdleState = IdleState.NONE;
             _currentRoamingState = RoamingState.NONE;
+            _currentPlayingState = PlayingState.NONE;
         }
         void LookAtPlayer()
         {
@@ -362,7 +407,13 @@ namespace Tamagotchi
         void CheckParalyze()
         {
             if (rb.velocity != Vector3.zero && rb.angularVelocity != Vector3.zero)
-                _currentAIState = AIStates.PARALYZED;
+            {
+                if (_currentAIState == AIStates.PLAYING)
+                    _currentPlayingState = PlayingState.STUNNED;
+                else
+                    _currentAIState = AIStates.PARALYZED;
+                    
+            }
             
 
 
@@ -391,6 +442,9 @@ namespace Tamagotchi
         {
             float rate = 0;
 
+            if (_currentAIState == AIStates.PLAYING)
+                rate += 0.1f;
+
             return BASE_HUNGER_RATE + rate;
         }
         /// <summary>
@@ -405,6 +459,7 @@ namespace Tamagotchi
             if (_currentHealthStage == HealthStage.SICK)
                 rate += 0.5f;
 
+            rate += 0.1f;
             return rate;
         }
         /// <summary>
@@ -537,6 +592,16 @@ namespace Tamagotchi
     {
         NONE,
         LOOKING_FOR_TARGET,
+        MOVING,
+        REACHED_TARGET
+    }
+
+    public enum PlayingState
+    {
+        NONE,
+        SETTING_UP,
+        WAITING,
+        STUNNED,
         MOVING,
         REACHED_TARGET
     }

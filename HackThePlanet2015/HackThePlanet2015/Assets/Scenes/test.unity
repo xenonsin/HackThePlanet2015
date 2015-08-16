@@ -1882,13 +1882,16 @@ MonoBehaviour:
   _currentIdleState: 1
   _currentReturningState: 0
   _currentRoamingState: 0
+  _currentPlayingState: 0
   numShitAroundYou: 0
   consumeRadius: .200000003
   annoyanceRadius: .800000012
   stablizeCooldown: 5
+  playStablizeCooldown: 5
   floatingStrength: 20
   idleTimeLeft: 0
-  decidingTimeLeft: 0
+  movementRate: 4
+  ExerciseNode: {fileID: 1178123864}
   targetLocation: {x: 0, y: 0, z: 0}
 --- !u!54 &280683552
 Rigidbody:
@@ -2093,10 +2096,9 @@ Transform:
   m_LocalPosition: {x: -.232311964, y: .560603976, z: 2.02776814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1178123865}
   - {fileID: 1377232618}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!114 &304186644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2275,7 +2277,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 3396c6816a092d647a68cbaade7c78bd, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11417626, guid: 3396c6816a092d647a68cbaade7c78bd, type: 2}
       propertyPath: unlockHold
@@ -6358,8 +6360,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1052054875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .211935997, y: -.375696361, z: -.381621599}
-  m_LocalScale: {x: .663143158, y: .663143277, z: .663143158}
+  m_LocalPosition: {x: .211935997, y: -.540000021, z: -.912}
+  m_LocalScale: {x: .5, y: .5, z: .663143158}
   m_Children: []
   m_Father: {fileID: 1377232618}
   m_RootOrder: 1
@@ -7366,11 +7368,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1178123864}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -1.62920685e-07}
-  m_LocalPosition: {x: .247311965, y: -.549603999, z: -1.58176816}
+  m_LocalPosition: {x: .0150000006, y: .0109999776, z: .44599998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 304186643}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
 --- !u!1 &1183511846
 GameObject:
   m_ObjectHideFlags: 0
@@ -8218,7 +8220,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1377232618
 Transform:
   m_ObjectHideFlags: 0
@@ -8232,7 +8234,7 @@ Transform:
   - {fileID: 1852465704}
   - {fileID: 1052054876}
   m_Father: {fileID: 304186643}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1 &1391978847
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@
             if (Pet.Instance.CanPlay())
             {
                 ExerciseManager.Instance.Activate();
+                Pet.Instance.Play();
             }
 
             base.ButtonTurnsOn();
