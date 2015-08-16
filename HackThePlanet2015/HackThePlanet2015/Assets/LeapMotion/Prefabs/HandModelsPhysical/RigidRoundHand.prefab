@@ -1096,7 +1096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceSpringConstant: 10
-  magnetDistance: .699999988
+  magnetDistance: .300000012
 --- !u!136 &13684496
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1314,7 +1314,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: magnetDistance
-      value: .699999988
+      value: .300000012
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: forceSpringConstant

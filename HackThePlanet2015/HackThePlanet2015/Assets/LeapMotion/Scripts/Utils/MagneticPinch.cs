@@ -4,6 +4,7 @@
 * Available at http://www.apache.org/licenses/LICENSE-2.0.html                 *
 \******************************************************************************/
 
+using Tamagotchi;
 using UnityEngine;
 using System.Collections;
 using Leap;

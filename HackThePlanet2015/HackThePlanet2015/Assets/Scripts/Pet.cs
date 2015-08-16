@@ -1,30 +1,38 @@
-﻿using UnityEngine;
+﻿using System.Runtime.Remoting;
+using UnityEngine;
 
 namespace Tamagotchi
 {
     public class Pet : MonoBehaviour
     {
-        [Range(0.0f, 100.0f)]
-        public float hunger = 100f;
-        private HungerStage _currentHungerStage = HungerStage.BLOATED;
-
-        [Range(0.0f, 100.0f)]
-        public float happiness = 100f;
-        private HappinessStage _currentHappinessStage = HappinessStage.JOYFUL;
-
+        #region Variables
         [Range(0.0f, 100.0f)]
         public float health = 100f;
+        [SerializeField]
         private HealthStage _currentHealthStage = HealthStage.FINE;
+        [Range(0.0f, 100.0f)]
+        public float hunger = 100f;
+        [SerializeField]
+        private HungerStage _currentHungerStage = HungerStage.BLOATED;
+        [Range(0.0f, 100.0f)]
+        public float happiness = 100f;
+        [SerializeField]
+        private HappinessStage _currentHappinessStage = HappinessStage.JOYFUL;
+
+        
+        [SerializeField]
+        private AIStates _currentAIState = AIStates.IDLING;
 
         public static Pet Instance;
-
-        private bool _isAlive = true;
 
         private const float BASE_HUNGER_RATE = 0.5f;
         public int numShitAroundYou = 0;
 
         public float consumeRadius = 0.2f;
         public float annoyanceRadius = 0.8f;
+
+        public float stablizeCooldown = 3.0f;
+        public float stablizeTime = 0.0f;
 
         public void ModifyHealth(float num)
         {
@@ -41,6 +49,22 @@ namespace Tamagotchi
             happiness += num;
         }
 
+        public bool CanPlay()
+        {
+            if (_currentHealthStage == HealthStage.SICK ||
+                _currentHealthStage == HealthStage.DEAD_LIKE_MY_HEART ||
+                _currentHungerStage == HungerStage.STARVING)
+                return false;
+
+            return true;
+        }
+
+        public bool IsAlive()
+        {
+            return _currentHealthStage != HealthStage.DEAD_LIKE_MY_HEART;
+        }
+        #endregion
+
         void OnEnable()
         {
             Instance = this;
@@ -56,7 +80,7 @@ namespace Tamagotchi
             CheckHunger();
             CheckHappiness();
 
-            if (_currentHealthStage != HealthStage.DEAD_LIKE_MY_HEART)
+            if (IsAlive())
             {
                 LowerHungerValue();
                 LowerHealthValue();
@@ -64,9 +88,52 @@ namespace Tamagotchi
 
                 CheckForConsumablesNearby();
                 CheckForAnnoyance();
+
+                Stabalize();
+                LookAtPlayer();
+                
             }
         }
 
+        #region AI Behavior
+        void Stabalize()
+        {
+            if (Time.time > stablizeTime + stablizeCooldown)
+            {
+                stablizeTime = Time.time;
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+              
+            }
+
+        }
+        void LookAtPlayer()
+        {
+            var targetPoint = Player.Instance.transform.position;
+            var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+            // Smoothly rotate towards the target point.
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 3.4f * Time.deltaTime);   
+        
+        }
+        /// <summary>
+        /// The Pet will not eat food when sick.
+        /// </summary>
+        void Eat(IConsumable consumable)
+        {
+            if (_currentHealthStage != HealthStage.SICK ||
+               IsAlive())
+            {
+                consumable.Consume();
+            }
+            else if (IsAlive())
+            {
+                if (consumable is Medicine)
+                    consumable.Consume();
+            }
+        }
+        #endregion
+
+        #region Check States
         void CheckHealth()
         {
             if (health > 40f)
@@ -96,6 +163,13 @@ namespace Tamagotchi
                 _currentHappinessStage = HappinessStage.MISERABLE;
         }
 
+        void CheckAI()
+        {
+            
+        }
+        #endregion
+
+        #region StatDepletion
         void LowerHungerValue()
         {
             hunger -= Time.deltaTime * HungerRate();
@@ -108,7 +182,6 @@ namespace Tamagotchi
         {
             health -= Time.deltaTime * UnhealthyRate();
         }
-
         /// <summary>
         /// The rate in which hunger decreases is determined by a constant base rate. Not yet sure whether other states affect this rate.
         /// </summary>
@@ -144,11 +217,13 @@ namespace Tamagotchi
             if (_currentHappinessStage == HappinessStage.MISERABLE)
                 rate += 0.5f;
 
-            rate += (numShitAroundYou/10.0f);
+            rate += (numShitAroundYou/50.0f);
 
             return rate;
         }
+        #endregion
 
+        #region AOE Check
         void CheckForConsumablesNearby()
         {
             // Check if we pinched a movable object and grab the closest one that's not part of the hand.
@@ -161,12 +236,13 @@ namespace Tamagotchi
                 if (close_things[j].GetComponent<IConsumable>() != null && new_distance.magnitude < distance.magnitude &&
                     !close_things[j].transform.IsChildOf(transform))
                 {
-                    close_things[j].GetComponent<IConsumable>().Consume();
+                    var consumable = close_things[j].GetComponent<IConsumable>();
+                    Eat(consumable);
+                    
                     distance = new_distance;
                 }
             }
         }
-
         void CheckForAnnoyance()
         {
             Collider[] close_things = Physics.OverlapSphere(transform.position, annoyanceRadius);
@@ -174,7 +250,7 @@ namespace Tamagotchi
 
             numShitAroundYou = close_things.Length;
         }
-
+      
         void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
@@ -183,7 +259,7 @@ namespace Tamagotchi
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, annoyanceRadius);
         }
-
+        #endregion
     }
     /// <summary>
     /// Decrease Health by eating Candy, being surrounded by things.
@@ -215,7 +291,20 @@ namespace Tamagotchi
         CONTENT,
         MISERABLE
     }
+    /// <summary>
+    /// IDLING - The Pet bobs around a certain point.
+    /// PLAYING - The Pet is currently engaged in a game with the Player.
+    /// ROAMING - The Pet finds a random point within the player sphere and flies to it.
+    /// RETURNING - The Pet was previously knocked out the player sphere and is returning to a random point in the player sphere.
+    /// </summary>
+    public enum AIStates
+    {
+        IDLING,
+        PLAYING,
+        ROAMING,
+        RETURNING
 
+    }
 
 
  
