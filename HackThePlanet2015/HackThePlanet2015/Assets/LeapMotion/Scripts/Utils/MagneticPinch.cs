@@ -20,7 +20,7 @@ public class MagneticPinch : MonoBehaviour {
   /** The stiffness of the spring force used to move the object toward the hand. */
   public float forceSpringConstant = 100.0f;
   /** The maximum range at which an object can be picked up.*/
-  public float magnetDistance = 2.0f;
+  public float magnetDistance = 0.2f;
 
   protected bool pinching_;
   protected Collider grabbed_;
@@ -95,5 +95,13 @@ public class MagneticPinch : MonoBehaviour {
       Vector3 distance = pinch_position - grabbed_.transform.position;
       grabbed_.GetComponent<Rigidbody>().AddForce(forceSpringConstant * distance);
     }
+  }
+  void OnDrawGizmos()
+  {
+      if (pinching_)
+      {
+          Gizmos.color = Color.yellow;
+          Gizmos.DrawWireSphere(transform.position, magnetDistance);
+      }
   }
 }
