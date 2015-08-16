@@ -1,6 +1,7 @@
-﻿using System;
-using System.Runtime.Remoting;
+﻿
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Tamagotchi
 {
@@ -23,6 +24,12 @@ namespace Tamagotchi
         
         [SerializeField]
         private AIStates _currentAIState = AIStates.IDLING;
+        [SerializeField]
+        private IdleState _currentIdleState = IdleState.NONE;
+        [SerializeField]
+        private ReturningState _currentReturningState = ReturningState.NONE;
+        [SerializeField]
+        private RoamingState _currentRoamingState = RoamingState.NONE;
 
         public static Pet Instance;
 
@@ -33,12 +40,16 @@ namespace Tamagotchi
         public float annoyanceRadius = 0.8f;
 
         public float stablizeCooldown = 3.0f;
-        public float stablizeTime = 0.0f;
+        private float stablizeTime = 0.0f;
 
-        public float floatingStrength = 1.0f;
+        public float floatingStrength = 100.0f;
+        public float idleTimeLeft = 0.0f;
 
-        private Vector3 targetLocation;
-        private Vector3 lastLocation;
+
+        public Vector3 targetLocation = new Vector3();
+        private Vector3 lastLocation = new Vector3();
+
+        private Rigidbody rb;
 
         public void ModifyHealth(float num)
         {
@@ -84,7 +95,7 @@ namespace Tamagotchi
             _currentAIState = AIStates.PLAYING;
         }
         #endregion
-
+        #region Unity STuff
         void OnEnable()
         {
             Instance = this;
@@ -93,6 +104,11 @@ namespace Tamagotchi
         void OnDisable()
         {
             Instance = null;
+        }
+
+        void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
         }
         void Update()
         {
@@ -112,55 +128,153 @@ namespace Tamagotchi
                 Stabalize();
                 LookAtPlayer();
 
+                CheckParalyze();
                 ActBaseOnAIState();
-                
+
             }
         }
-
+        #endregion
         #region AI Behavior
+
 
         void ActBaseOnAIState()
         {
             switch (_currentAIState)
             {
+                case AIStates.PARALYZED:
+                    break;
+                case AIStates.DECIDING:
+                    Deciding();
+                    break;
                 case AIStates.IDLING:
                     Idle();
                     break;
                 case AIStates.PLAYING:
                     break;
                 case AIStates.ROAMING:
+                    Roaming();
                     break;
                 case AIStates.RETURNING:
+                    Returning();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        void Deciding()
+        {
+            ResetAIStates();
+
+            if (IsOutOfPlayerLimits())
+            {
+                _currentAIState = AIStates.RETURNING;
+                if (_currentReturningState == ReturningState.NONE)
+                    _currentReturningState = ReturningState.LOOKING_FOR_TARGET;
+            }
+            else
+            {
+                 _currentAIState = Random.value < 0.6f ? AIStates.IDLING : AIStates.ROAMING;
+            }
+
+           
+        }
+
+        //Pet bobs around a point.
+        void Idle()
+        {
+            switch (_currentIdleState)
+            {
+                case IdleState.NONE:
+                    break;
+                case IdleState.RECORDING_POSITON:
+                    lastLocation = transform.position;
+                    idleTimeLeft = Random.Range(4, 10);
+                    _currentIdleState = IdleState.DOIN_MY_THANG;
+                    break;
+                case IdleState.DOIN_MY_THANG:
+                    transform.position = new Vector3(transform.position.x,lastLocation.y + ((float)Math.Sin(Time.time) / floatingStrength),transform.position.z);
+                    idleTimeLeft -= Time.deltaTime;
+                    if (idleTimeLeft < 0f)
+                        _currentAIState = AIStates.DECIDING;
+                    break;
+            }
+            //Currently Only Moves Up and Down.
+           
+        }
+
+        void Roaming()
+        {
+            switch (_currentRoamingState)
+            {
+                case RoamingState.NONE:
+                    break;
+                case RoamingState.LOOKING_FOR_TARGET:
+                    targetLocation = RandomPointInPlayerSphere();
+                    _currentRoamingState = RoamingState.MOVING;
+                    break;
+                case RoamingState.MOVING:
+                    transform.position = Vector3.MoveTowards(transform.position, targetLocation,Time.deltaTime / 4);
+                    if (ReachedTarget())
+                        _currentRoamingState = RoamingState.REACHED_TARGET;
+                    break;
+                case RoamingState.REACHED_TARGET:
+                    _currentAIState = AIStates.DECIDING;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
-        //Pet bobs around a point.
-        void Idle()
+
+        void Returning()
         {
-            //Currently Only Moves Up and Down.
-            transform.position = new Vector3(transform.position.x,
-            originalY + ((float)Math.Sin(Time.time) * floatingStrength),
-            transform.position.z);
+            switch (_currentReturningState)
+            {
+                case ReturningState.NONE:
+                    break;
+                case ReturningState.LOOKING_FOR_TARGET:
+                    targetLocation = RandomPointInPlayerSphere();
+                    _currentReturningState = ReturningState.MOVING;
+
+                    break;
+                case ReturningState.MOVING:
+                    transform.position = Vector3.MoveTowards(transform.position, targetLocation,Time.deltaTime / 4);
+                    if (ReachedTarget())
+                        _currentReturningState = ReturningState.REACHED_TARGET;
+                    break;
+                case ReturningState.REACHED_TARGET:
+                    _currentAIState = AIStates.DECIDING;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         void Stabalize()
         {
-            if (Time.time > stablizeTime + stablizeCooldown)
+            
+            if (Time.time > stablizeTime + stablizeCooldown && _currentAIState == AIStates.PARALYZED)
             {
                 stablizeTime = Time.time;
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-                GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
               
+                _currentAIState = AIStates.DECIDING;
+                
             }
 
+        }
+
+        void ResetAIStates()
+        {
+            _currentReturningState = ReturningState.NONE;
+            _currentIdleState = IdleState.NONE;
         }
         void LookAtPlayer()
         {
             var targetPoint = Player.Instance.transform.position;
             var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
             // Smoothly rotate towards the target point.
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 3.4f * Time.deltaTime);   
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 2 * Time.deltaTime);   
         
         }
         /// <summary>
@@ -179,7 +293,19 @@ namespace Tamagotchi
             }
         }
 
-        
+        Vector3 RandomPointInPlayerSphere()
+        {
+            var position = Player.Instance.transform.position + Random.onUnitSphere / 2;
+            if (position.y < 0)
+                position.y = 1;
+            return position;
+        }
+
+        bool ReachedTarget()
+        {
+            return Vector3.Distance(transform.position, targetLocation) < 0.01f;
+        }
+
         #endregion
 
         #region Check States
@@ -217,6 +343,16 @@ namespace Tamagotchi
                 _currentHappinessStage = HappinessStage.MISERABLE;
             else
                 happiness = 0;
+        }
+
+        void CheckParalyze()
+        {
+            if (rb.velocity != Vector3.zero && rb.angularVelocity != Vector3.zero)
+                _currentAIState = AIStates.PARALYZED;
+            
+
+
+            //_currentAIState = AIStates.IDLING;
         }
 
         #endregion
@@ -277,10 +413,11 @@ namespace Tamagotchi
 
         #region AOE Check
 
-        void CheckIfOutOfPlayerLimits()
+        bool IsOutOfPlayerLimits()
         {
-            
+            return Vector3.Distance(transform.position, Player.Instance.transform.position) > 0.6f;
         }
+
         void CheckForConsumablesNearby()
         {
             // Check if we pinched a movable object and grab the closest one that's not part of the hand.
@@ -358,11 +495,36 @@ namespace Tamagotchi
     public enum AIStates
     {
         PARALYZED,
+        DECIDING,
         IDLING,
         PLAYING,
         ROAMING,
         RETURNING
 
+    }
+
+    public enum ReturningState
+    {
+        NONE,
+        LOOKING_FOR_TARGET,
+        MOVING,
+        REACHED_TARGET
+    }
+
+    public enum IdleState
+    {
+        NONE,
+        RECORDING_POSITON,
+        DOIN_MY_THANG
+
+    }
+
+    public enum RoamingState
+    {
+        NONE,
+        LOOKING_FOR_TARGET,
+        MOVING,
+        REACHED_TARGET
     }
 
 

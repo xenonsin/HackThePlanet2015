@@ -1878,12 +1878,16 @@ MonoBehaviour:
   _currentHungerStage: 0
   happiness: 100
   _currentHappinessStage: 0
-  _currentAIState: 0
+  _currentAIState: 2
+  _currentIdleState: 1
+  _currentReturningState: 0
   numShitAroundYou: 0
   consumeRadius: .200000003
   annoyanceRadius: .800000012
-  stablizeCooldown: 3
-  stablizeTime: 0
+  stablizeCooldown: 5
+  lookForTargetCooldown: 5
+  floatingStrength: 20
+  targetLocation: {x: 0, y: 0, z: 0}
 --- !u!54 &280683552
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6478,7 +6482,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1101255402}
-  - 114: {fileID: 1101255403}
   m_Layer: 0
   m_Name: PlayButton
   m_TagString: Untagged
@@ -6500,21 +6503,6 @@ Transform:
   - {fileID: 1540888289}
   m_Father: {fileID: 1208319561}
   m_RootOrder: 5
---- !u!114 &1101255403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1101255401}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2698eade05bff1546b5df54856fd0294, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_widgets:
-  - {fileID: 0}
-  m_lastDataValue: 0
-  _exerciseManager: {fileID: 304186644}
 --- !u!1 &1107008566
 GameObject:
   m_ObjectHideFlags: 0
@@ -10876,7 +10864,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400020, guid: 961585a0b03d7b14091700b5cfacb300, type: 3}
       propertyPath: m_LocalPosition.y
-      value: .0109999999
+      value: -.0879999995
       objectReference: {fileID: 0}
     - target: {fileID: 400020, guid: 961585a0b03d7b14091700b5cfacb300, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10900,7 +10888,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400020, guid: 961585a0b03d7b14091700b5cfacb300, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: 961585a0b03d7b14091700b5cfacb300, type: 3}
       propertyPath: m_Materials.Array.data[0]
