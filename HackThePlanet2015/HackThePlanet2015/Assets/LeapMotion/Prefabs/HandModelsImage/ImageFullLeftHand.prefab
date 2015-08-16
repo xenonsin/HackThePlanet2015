@@ -1035,8 +1035,8 @@ MonoBehaviour:
   confidenceCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: 0
+    - time: .00833333377
+      value: .973124981
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1130,6 +1130,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: confidenceSmoothing
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: confidenceCurve.m_Curve.Array.data[0].time
+      value: .00833333377
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: confidenceCurve.m_Curve.Array.data[0].value
+      value: .973124981
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

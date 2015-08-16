@@ -1095,7 +1095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75744f6bc3b9e4cb8b938addf7e6495b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceSpringConstant: 10
+  forceSpringConstant: 1000
   magnetDistance: .400000006
 --- !u!136 &13684496
 CapsuleCollider:
@@ -1318,7 +1318,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: forceSpringConstant
-      value: 10
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
