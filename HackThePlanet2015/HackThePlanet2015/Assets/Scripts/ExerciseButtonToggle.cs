@@ -14,6 +14,8 @@
 
         public override void ButtonTurnsOff()
         {
+           ExerciseManager.Instance.Deactivate();
+
            base.ButtonTurnsOff();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Remoting;
+﻿using System;
+using System.Runtime.Remoting;
 using UnityEngine;
 
 namespace Tamagotchi
@@ -34,6 +35,11 @@ namespace Tamagotchi
         public float stablizeCooldown = 3.0f;
         public float stablizeTime = 0.0f;
 
+        public float floatingStrength = 1.0f;
+
+        private Vector3 targetLocation;
+        private Vector3 lastLocation;
+
         public void ModifyHealth(float num)
         {
             health += num;
@@ -63,6 +69,20 @@ namespace Tamagotchi
         {
             return _currentHealthStage != HealthStage.DEAD_LIKE_MY_HEART;
         }
+
+        public bool IsHealthy()
+        {
+            if (_currentHealthStage == HealthStage.SICK ||
+                _currentHealthStage == HealthStage.DEAD_LIKE_MY_HEART)
+                return false;
+
+            return true;
+        }
+
+        public void Play()
+        {
+            _currentAIState = AIStates.PLAYING;
+        }
         #endregion
 
         void OnEnable()
@@ -91,11 +111,39 @@ namespace Tamagotchi
 
                 Stabalize();
                 LookAtPlayer();
+
+                ActBaseOnAIState();
                 
             }
         }
 
         #region AI Behavior
+
+        void ActBaseOnAIState()
+        {
+            switch (_currentAIState)
+            {
+                case AIStates.IDLING:
+                    Idle();
+                    break;
+                case AIStates.PLAYING:
+                    break;
+                case AIStates.ROAMING:
+                    break;
+                case AIStates.RETURNING:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        //Pet bobs around a point.
+        void Idle()
+        {
+            //Currently Only Moves Up and Down.
+            transform.position = new Vector3(transform.position.x,
+            originalY + ((float)Math.Sin(Time.time) * floatingStrength),
+            transform.position.z);
+        }
         void Stabalize()
         {
             if (Time.time > stablizeTime + stablizeCooldown)
@@ -120,8 +168,7 @@ namespace Tamagotchi
         /// </summary>
         void Eat(IConsumable consumable)
         {
-            if (_currentHealthStage != HealthStage.SICK ||
-               IsAlive())
+            if (IsHealthy())
             {
                 consumable.Consume();
             }
@@ -131,6 +178,8 @@ namespace Tamagotchi
                     consumable.Consume();
             }
         }
+
+        
         #endregion
 
         #region Check States
@@ -141,7 +190,10 @@ namespace Tamagotchi
             else if (health > 1f)
                 _currentHealthStage = HealthStage.SICK;
             else
+            {
+                health = 0;
                 _currentHealthStage = HealthStage.DEAD_LIKE_MY_HEART;
+            }
         }
         void CheckHunger()
         {
@@ -149,8 +201,10 @@ namespace Tamagotchi
                 _currentHungerStage = HungerStage.BLOATED;
             else if (hunger > 30f)
                 _currentHungerStage = HungerStage.SATISFIED;
-            else
+            else if (hunger > 1f)
                 _currentHungerStage = HungerStage.STARVING;
+            else
+                hunger = 0;
                     
         }
         void CheckHappiness()
@@ -159,14 +213,12 @@ namespace Tamagotchi
                 _currentHappinessStage = HappinessStage.JOYFUL;
             else if (happiness > 40f)
                 _currentHappinessStage = HappinessStage.CONTENT;
-            else 
+            else if (happiness > 1f)
                 _currentHappinessStage = HappinessStage.MISERABLE;
+            else
+                happiness = 0;
         }
 
-        void CheckAI()
-        {
-            
-        }
         #endregion
 
         #region StatDepletion
@@ -224,6 +276,11 @@ namespace Tamagotchi
         #endregion
 
         #region AOE Check
+
+        void CheckIfOutOfPlayerLimits()
+        {
+            
+        }
         void CheckForConsumablesNearby()
         {
             // Check if we pinched a movable object and grab the closest one that's not part of the hand.
@@ -292,6 +349,7 @@ namespace Tamagotchi
         MISERABLE
     }
     /// <summary>
+    /// PARALYZED - Pet cannot act, usually result of being hit.
     /// IDLING - The Pet bobs around a certain point.
     /// PLAYING - The Pet is currently engaged in a game with the Player.
     /// ROAMING - The Pet finds a random point within the player sphere and flies to it.
@@ -299,6 +357,7 @@ namespace Tamagotchi
     /// </summary>
     public enum AIStates
     {
+        PARALYZED,
         IDLING,
         PLAYING,
         ROAMING,
