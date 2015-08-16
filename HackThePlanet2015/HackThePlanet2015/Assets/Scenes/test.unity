@@ -1881,12 +1881,14 @@ MonoBehaviour:
   _currentAIState: 2
   _currentIdleState: 1
   _currentReturningState: 0
+  _currentRoamingState: 0
   numShitAroundYou: 0
   consumeRadius: .200000003
   annoyanceRadius: .800000012
   stablizeCooldown: 5
-  lookForTargetCooldown: 5
   floatingStrength: 20
+  idleTimeLeft: 0
+  decidingTimeLeft: 0
   targetLocation: {x: 0, y: 0, z: 0}
 --- !u!54 &280683552
 Rigidbody:

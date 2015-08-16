@@ -43,7 +43,9 @@ namespace Tamagotchi
         private float stablizeTime = 0.0f;
 
         public float floatingStrength = 100.0f;
+
         public float idleTimeLeft = 0.0f;
+        public float decidingTimeLeft = 0.0f;
 
 
         public Vector3 targetLocation = new Vector3();
@@ -174,7 +176,18 @@ namespace Tamagotchi
             }
             else
             {
-                 _currentAIState = Random.value < 0.6f ? AIStates.IDLING : AIStates.ROAMING;
+                if (Random.value < 0.5f)
+                {
+                    _currentAIState = AIStates.IDLING;
+                    if (_currentIdleState == IdleState.NONE)
+                        _currentIdleState = IdleState.DOIN_MY_THANG;
+                }
+                else
+                {
+                    _currentAIState = AIStates.ROAMING;
+                    if (_currentRoamingState == RoamingState.NONE)
+                        _currentRoamingState = RoamingState.LOOKING_FOR_TARGET;
+                }
             }
 
            
@@ -189,7 +202,6 @@ namespace Tamagotchi
                     break;
                 case IdleState.RECORDING_POSITON:
                     lastLocation = transform.position;
-                    idleTimeLeft = Random.Range(4, 10);
                     _currentIdleState = IdleState.DOIN_MY_THANG;
                     break;
                 case IdleState.DOIN_MY_THANG:
@@ -197,6 +209,7 @@ namespace Tamagotchi
                     idleTimeLeft -= Time.deltaTime;
                     if (idleTimeLeft < 0f)
                         _currentAIState = AIStates.DECIDING;
+                    
                     break;
             }
             //Currently Only Moves Up and Down.
@@ -266,8 +279,10 @@ namespace Tamagotchi
 
         void ResetAIStates()
         {
+            idleTimeLeft = Random.Range(5, 10);
             _currentReturningState = ReturningState.NONE;
             _currentIdleState = IdleState.NONE;
+            _currentRoamingState = RoamingState.NONE;
         }
         void LookAtPlayer()
         {
@@ -296,8 +311,7 @@ namespace Tamagotchi
         Vector3 RandomPointInPlayerSphere()
         {
             var position = Player.Instance.transform.position + Random.onUnitSphere / 2;
-            if (position.y < 0)
-                position.y = 1;
+            position.y = 0;
             return position;
         }
 
