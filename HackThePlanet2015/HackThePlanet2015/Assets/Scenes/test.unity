@@ -1887,7 +1887,7 @@ MonoBehaviour:
   consumeRadius: .200000003
   annoyanceRadius: .800000012
   stablizeCooldown: 5
-  playStablizeCooldown: 5
+  playStablizeCooldown: 4
   floatingStrength: 20
   idleTimeLeft: 0
   movementRate: 4
@@ -4075,6 +4075,14 @@ Prefab:
       propertyPath: m_Text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 197938, guid: 37aa93a74eff3bf45ad0fd3d47d551f2, type: 2}
+      propertyPath: m_Name
+      value: ScoreValue
+      objectReference: {fileID: 0}
+    - target: {fileID: 110362, guid: 37aa93a74eff3bf45ad0fd3d47d551f2, type: 2}
+      propertyPath: m_Name
+      value: ScoreText
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37aa93a74eff3bf45ad0fd3d47d551f2, type: 2}
   m_IsPrefabParent: 0
@@ -4668,6 +4676,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 729426470}
   m_Mesh: {fileID: 4300000, guid: f607ae8e94c7b344eb6185548d840a97, type: 3}
+--- !u!114 &729985047 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11483464, guid: 37aa93a74eff3bf45ad0fd3d47d551f2,
+    type: 2}
+  m_PrefabInternal: {fileID: 620505640}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &741162796
 GameObject:
   m_ObjectHideFlags: 0
@@ -6346,6 +6360,7 @@ GameObject:
   - 33: {fileID: 1052054879}
   - 65: {fileID: 1052054878}
   - 23: {fileID: 1052054877}
+  - 114: {fileID: 1052054880}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
@@ -6396,7 +6411,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1052054875}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -6408,6 +6423,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1052054875}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1052054880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052054875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1055a8b901dfb469b44747506cc641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 729985047}
+  score: 0
 --- !u!1 &1052095219
 GameObject:
   m_ObjectHideFlags: 0

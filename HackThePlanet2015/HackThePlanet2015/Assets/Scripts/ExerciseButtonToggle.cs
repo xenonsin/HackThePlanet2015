@@ -8,6 +8,7 @@
             {
                 ExerciseManager.Instance.Activate();
                 Pet.Instance.Play();
+                Target.Instance.Reset();
             }
 
             base.ButtonTurnsOn();
