@@ -1031,7 +1031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a466dfc78945e134da5822da32437412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  confidenceSmoothing: 10
+  confidenceSmoothing: 20
   confidenceCurve:
     serializedVersion: 2
     m_Curve:
@@ -1126,6 +1126,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: confidenceSmoothing
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

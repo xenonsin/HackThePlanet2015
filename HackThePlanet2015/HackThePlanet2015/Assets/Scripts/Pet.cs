@@ -21,7 +21,25 @@ namespace Tamagotchi
         private bool _isAlive = true;
 
         private const float BASE_HUNGER_RATE = 0.5f;
+        public int numShitAroundYou = 0;
 
+        public float consumeRadius = 0.2f;
+        public float annoyanceRadius = 0.8f;
+
+        public void ModifyHealth(float num)
+        {
+            health += num;
+        }
+
+        public void ModifyHunger(float num)
+        {
+            hunger += num;
+        }
+
+        public void ModifyHappiness(float num)
+        {
+            happiness += num;
+        }
 
         void OnEnable()
         {
@@ -45,6 +63,7 @@ namespace Tamagotchi
                 LowerHappinessValue();
 
                 CheckForConsumablesNearby();
+                CheckForAnnoyance();
             }
         }
 
@@ -125,12 +144,44 @@ namespace Tamagotchi
             if (_currentHappinessStage == HappinessStage.MISERABLE)
                 rate += 0.5f;
 
+            rate += (numShitAroundYou/10.0f);
+
             return rate;
         }
 
         void CheckForConsumablesNearby()
         {
-           
+            // Check if we pinched a movable object and grab the closest one that's not part of the hand.
+            Collider[] close_things = Physics.OverlapSphere(transform.position, consumeRadius);
+            Vector3 distance = new Vector3(consumeRadius, 0.0f, 0.0f);
+
+            for (int j = 0; j < close_things.Length; ++j)
+            {
+                Vector3 new_distance = transform.position - close_things[j].transform.position;
+                if (close_things[j].GetComponent<IConsumable>() != null && new_distance.magnitude < distance.magnitude &&
+                    !close_things[j].transform.IsChildOf(transform))
+                {
+                    close_things[j].GetComponent<IConsumable>().Consume();
+                    distance = new_distance;
+                }
+            }
+        }
+
+        void CheckForAnnoyance()
+        {
+            Collider[] close_things = Physics.OverlapSphere(transform.position, annoyanceRadius);
+            Vector3 distance = new Vector3(annoyanceRadius, 0.0f, 0.0f);
+
+            numShitAroundYou = close_things.Length;
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, consumeRadius);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, annoyanceRadius);
         }
 
     }

@@ -6,7 +6,8 @@ namespace Tamagotchi
     {
         public void Consume()
         {
-            Destroy(this);
+            Pet.Instance.ModifyHealth(10);
+            Destroy(this.gameObject);
 
         }
     }
