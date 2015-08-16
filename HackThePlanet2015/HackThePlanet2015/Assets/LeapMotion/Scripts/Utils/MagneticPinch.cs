@@ -19,7 +19,7 @@ public class MagneticPinch : MonoBehaviour {
   public const float TRIGGER_DISTANCE_RATIO = 0.7f;
 
   /** The stiffness of the spring force used to move the object toward the hand. */
-  public float forceSpringConstant = 100.0f;
+  public float forceSpringConstant = 1000.0f;
   /** The maximum range at which an object can be picked up.*/
   public float magnetDistance = 0.2f;
 
